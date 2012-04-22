@@ -22,6 +22,12 @@ vows.describe('The Thumbor Javascript Library').addBatch({
                 actual = topic.requestPath();
 
             assert.equal(actual, expected);
+        },
+
+        "An image URL of null": function(topic) {
+            var cryptoURL = new CryptoURL("my-security-keym", null);
+
+            assert.throws(cryptoURL.requestPath, Error);
         }
     }
 }).export(module);

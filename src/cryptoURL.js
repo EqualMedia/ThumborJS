@@ -28,7 +28,7 @@ CryptoURL.prototype =  {
 
     requestPath: function() {
         if (!this.imageURL) {
-            throw 'The image url can\'t be null or empty.';
+            throw Error('The image url can\'t be null or empty.');
         }
         var parts = [];
 
