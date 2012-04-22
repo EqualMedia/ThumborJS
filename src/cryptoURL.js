@@ -3,7 +3,11 @@ var CryptoLib = require('../lib/ezcrypto/index').Crypto;
 var CryptoURL = module.exports = function(securityKey, imageURL) {
     this.key = this.inflateKey(securityKey);
     this.imageURL = imageURL;
+
     this.filters = {};
+    this.width = 0;
+    this.height = 0;
+    this.smart = false;
 }
 
 CryptoURL.prototype =  {
@@ -45,7 +49,11 @@ CryptoURL.prototype =  {
         var parts = [];
 
         if (this.width || this.height) {
-            parts.push((this.width === undefined ? '0' : this.width) + 'x' + (this.height === undefined ? '0' : this.height));
+            parts.push(this.width + 'x' + this.height);
+        }
+
+        if (this.smart) {
+            parts.push('smart');
         }
 
         return parts;
@@ -72,6 +80,11 @@ CryptoURL.prototype =  {
     resize: function(width, height) {
         this.width = width;
         this.height = height;
+        return this;
+    },
+
+    withSmartCropping: function() {
+        this.smart = true;
         return this;
     },
 
