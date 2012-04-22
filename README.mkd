@@ -1,8 +1,23 @@
 ThumborJS
 =========
 
-Thumbor Javascript (ThumborJS) is a library to generate encrypted [Thumbor](https://github.com/globocom/thumbor/) URLs. You can use this library in both browser based applications and NodeJS. 
+Thumbor Javascript (ThumborJS) is a library to generate encrypted [Thumbor](https://github.com/globocom/thumbor/) URLs. 
+You can use this library in both browser based applications and NodeJS. 
 
 Note:
-----
+
 * Is not recommended to use in browser since you must have to share your Thumbor Security Key with your web clients.
+
+Usage
+-----
+
+Using ThumborJS is pretty simple, all you have to do is create a CryptoURL instance with the 
+proper key and original image URL and start customizing it.
+
+```javascript
+CryptoURL crypto = new CryptoURL('my-security-key', 'http://my.server.com/path/to/my/image.jpg');
+var encryptedURL = crypto.resize(300, 200).withSmartCropping().toString();
+console.log(encrypedURL);
+// /l42l54VqaV_J-EcB5quNMP6CnsN9BX7htrh-QbPuDv0C7adUXX7LTo6DHm_woJtZ/my.server.com/some/path/to/image.jpg
+```
+
