@@ -12,18 +12,39 @@ vows.describe('The Thumbor Javascript Library').addBatch({
                 actualURL = topic.resize(300, 200).toString();
             assert.equal(actualURL, expectedURL);
         },
-        
+
         "Ask for meta": function(topic) {
             var cryptoURL = new CryptoURL('my-security-key', 'http://my.server.com/some/path/to/image.jpg'),
                 expectedURL = '/Jj2Xp-__GWUzZ5zemvPGW2B3j5atA7X1ntF0irz-YGXUcE3-QpqkDbDnVUmBhHi-/my.server.com/some/path/to/image.jpg';
                 actualURL = cryptoURL.metaDataOnly().toString();
             assert.equal(actualURL, expectedURL);
         },
-        
+
         "Ask for smart": function(topic) {
             var cryptoURL = new CryptoURL('my-security-key', 'http://my.server.com/some/path/to/image.jpg'),
                 expectedURL = '/YV6ASUwnbI8XwBw6LpMdv1wy7xC-EHp44LIQqyPYPIqa-dX7JCv4LSeObHxPyY17/my.server.com/some/path/to/image.jpg';
                 actualURL = cryptoURL.withSmartCropping().toString();
+            assert.equal(actualURL, expectedURL);
+        },
+
+        "Ask for fitin": function(topic) {
+            var cryptoURL = new CryptoURL('my-security-key', 'http://my.server.com/some/path/to/image.jpg'),
+                expectedURL = '/nZlz3CEKZFMVFcNo7KKFzFWKWb7W2fFEqo_LQ2omj13fQPzSSENNk7Iz8Pc4sFen/my.server.com/some/path/to/image.jpg';
+                actualURL = cryptoURL.fitIn(0,0).toString();
+            assert.equal(actualURL, expectedURL);
+        },
+
+        "Ask for flip": function(topic) {
+            var cryptoURL = new CryptoURL('my-security-key', 'http://my.server.com/some/path/to/image.jpg'),
+                expectedURL = '/lMySk3L-Z2oa-RXQs4MgWWB3j5atA7X1ntF0irz-YGXUcE3-QpqkDbDnVUmBhHi-/my.server.com/some/path/to/image.jpg';
+                actualURL = cryptoURL.flipHorizontally().toString();
+            assert.equal(actualURL, expectedURL);
+        },
+
+        "Ask for flop": function(topic) {
+            var cryptoURL = new CryptoURL('my-security-key', 'http://my.server.com/some/path/to/image.jpg'),
+                expectedURL = '/Yq1tjo95ZWIKrntANgW-UGB3j5atA7X1ntF0irz-YGXUcE3-QpqkDbDnVUmBhHi-/my.server.com/some/path/to/image.jpg';
+                actualURL = cryptoURL.flipVertically().toString();
             assert.equal(actualURL, expectedURL);
         },
 
