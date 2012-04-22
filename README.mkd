@@ -1,10 +1,8 @@
 ThumborJS
 =========
 
-Thumbor Javascript (ThumborJS) is a library to generate encrypted [Thumbor] URLs. You can use this library in both browser based applications and NodeJS. 
+Thumbor Javascript (ThumborJS) is a library to generate encrypted [Thumbor](https://github.com/globocom/thumbor/) URLs. You can use this library in both browser based applications and NodeJS. 
 
 Note:
 ----
 * Is not recommended to use in browser since you must have to share your Thumbor Security Key with your web clients.
-
-    [thumbor]: https://github.com/globocom/thumbor/
