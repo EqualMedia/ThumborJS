@@ -1,4 +1,4 @@
-var CryptoLib = require('../lib/ezcrypto/index').Crypto;
+var CryptoLib = require('ezcrypto').Crypto;
 
 var CryptoURL = module.exports = function(securityKey, imageURL) {
     this.key = this.inflateKey(securityKey);

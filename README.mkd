@@ -1,12 +1,6 @@
 # ThumborJS
 
 Thumbor Javascript (ThumborJS) is a library to generate encrypted [Thumbor](https://github.com/globocom/thumbor/) URLs. 
-You can use this library in both browser based applications and NodeJS. 
-
-Note:
-
-* It is not recommended to use in browser since you must have to share your Thumbor Security Key with the web clients. Anyway
-in some use cases it makes sense.
 
 ## Usage
 
@@ -18,6 +12,20 @@ CryptoURL crypto = new CryptoURL('my-security-key', 'http://my.server.com/path/t
 var encryptedURL = crypto.resize(300, 200).withSmartCropping().toString();
 console.log(encrypedURL);
 // /LFS8rnXScOTlQvOJBE8i55p_LwzRr7aEgLYtDBpyAwUTwd2x1TsZr6yOHZpBF_YF/my.server.com/some/path/to/image.jpg
+```
+
+## Development
+
+You need to install [ezcrypto](https://github.com/ElmerZhang/ezcrypto). Just run:
+
+```bash
+$ npm install ezcrypto vows
+```
+
+And then you can run all tests.
+
+```bash
+$ make vows
 ```
 
 # License
