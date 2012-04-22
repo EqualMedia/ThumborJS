@@ -1,5 +1,4 @@
-var md5 = require('../lib/md5'),
-    aes = require('../lib/aes');
+var CryptoLib = require('../lib/ezcrypto/index').Crypto;
 
 var CryptoURL = module.exports = function(securityKey, imageURL) {
     this.key = this.inflateKey(securityKey);
@@ -17,9 +16,14 @@ CryptoURL.prototype =  {
     },
 
     generate: function() {
-        var url = this.requestPath();
+        var url = this.requestPath(),
+            encryptedURL;
+
         url = this.rightPad(url, '{');
-        return url + '/' + this.imageURL;
+
+        encryptedURL = CryptoLib.AES.encrypt(url, CryptoLib.charenc.UTF8.stringToBytes(this.key), {mode: new CryptoLib.mode.ECB(CryptoLib.pad.NoPadding) });
+
+        return '/' + encryptedURL.replace(/\+/g, '-').replace(/\//g, '_') + '/' + this.imageURL;
     },
 
     requestPath: function() {
@@ -28,12 +32,12 @@ CryptoURL.prototype =  {
         }
         var parts = [];
 
-        if (this.width !== undefined || this.height !== undefined) {
+        if (this.width || this.height) {
             parts.push((this.width === undefined ? '0' : this.width) + 'x' + (this.height === undefined ? '0' : this.height));
         }
 
-        url = parts.join('/');
-        url += this.md5(url).data;
+        var url = parts.join('/') + '/';
+        url += this.md5(this.imageURL);
         return url;
     },
 
@@ -52,9 +56,7 @@ CryptoURL.prototype =  {
     },
 
     md5: function(imageURL) {
-        var md = md5.create();
-        md.update(imageURL);
-        return md.digest();
+        return CryptoLib.MD5(imageURL);
     },
 
     resize: function(width, height) {
