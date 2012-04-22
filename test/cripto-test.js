@@ -134,17 +134,52 @@ vows.describe('The Thumbor Javascript Library').addBatch({
             assert.equal(actualURL, expectedURL);
         },
 
-        'I ask for the flip and width of 200 and get "-0x-0/84996242f65a4d864aceb125e1c4c5ba" as URL': function(topic) {
+        'I ask for the flip and width of 200 and get "-200x0/84996242f65a4d864aceb125e1c4c5ba" as URL': function(topic) {
             var cryptoURL = new CryptoURL('my-security-key', 'my.server.com/some/path/to/image.jpg'),
                 expectedURL = '-200x0/84996242f65a4d864aceb125e1c4c5ba',
                 actualURL = cryptoURL.resize(200, 0).flipHorizontally().requestPath();
             assert.equal(actualURL, expectedURL);
         },
 
-        'I ask for the flop and height of 200 and get "-0x-0/84996242f65a4d864aceb125e1c4c5ba" as URL': function(topic) {
+        'I ask for the flop and height of 200 and get "0x-200/84996242f65a4d864aceb125e1c4c5ba" as URL': function(topic) {
             var cryptoURL = new CryptoURL('my-security-key', 'my.server.com/some/path/to/image.jpg'),
                 expectedURL = '0x-200/84996242f65a4d864aceb125e1c4c5ba',
                 actualURL = cryptoURL.resize(0, 200).flipVertically().requestPath();
+            assert.equal(actualURL, expectedURL);
+        },
+
+        'I ask for the "left" horizontal alignment option and get "left/84996242f65a4d864aceb125e1c4c5ba" as URL': function(topic) {
+            var cryptoURL = new CryptoURL('my-security-key', 'my.server.com/some/path/to/image.jpg'),
+                expectedURL = 'left/84996242f65a4d864aceb125e1c4c5ba',
+                actualURL = cryptoURL.halign('left').requestPath();
+            assert.equal(actualURL, expectedURL);
+        },
+
+        'I ask for the "center" horizontal alignment option and get "center/84996242f65a4d864aceb125e1c4c5ba" as URL': function(topic) {
+            var cryptoURL = new CryptoURL('my-security-key', 'my.server.com/some/path/to/image.jpg'),
+                expectedURL = 'center/84996242f65a4d864aceb125e1c4c5ba',
+                actualURL = cryptoURL.halign('center').requestPath();
+            assert.equal(actualURL, expectedURL);
+        },
+
+        'I ask for the "top" vertical alignment option and get "top/84996242f65a4d864aceb125e1c4c5ba" as URL': function(topic) {
+            var cryptoURL = new CryptoURL('my-security-key', 'my.server.com/some/path/to/image.jpg'),
+                expectedURL = 'top/84996242f65a4d864aceb125e1c4c5ba',
+                actualURL = cryptoURL.valign('top').requestPath();
+            assert.equal(actualURL, expectedURL);
+        },
+
+        'I ask for the "middle" vertical alignment option and get "middle/84996242f65a4d864aceb125e1c4c5ba" as URL': function(topic) {
+            var cryptoURL = new CryptoURL('my-security-key', 'my.server.com/some/path/to/image.jpg'),
+                expectedURL = 'middle/84996242f65a4d864aceb125e1c4c5ba',
+                actualURL = cryptoURL.valign('middle').requestPath();
+            assert.equal(actualURL, expectedURL);
+        },
+
+        'I ask for the "left" horizontal alignment and "top" as vertical alignment option and get "left/top/84996242f65a4d864aceb125e1c4c5ba" as URL': function(topic) {
+            var cryptoURL = new CryptoURL('my-security-key', 'my.server.com/some/path/to/image.jpg'),
+                expectedURL = 'left/top/84996242f65a4d864aceb125e1c4c5ba',
+                actualURL = cryptoURL.halign('left').valign('top').requestPath();
             assert.equal(actualURL, expectedURL);
         },
 

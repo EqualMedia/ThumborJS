@@ -16,10 +16,20 @@ var CryptoURL = module.exports = function(securityKey, imageURL) {
     this.fitInFlag = false;
     this.withFlipHorizontally = false;
     this.withFlipVertically = false;
+    this.halignValue = null;
+    this.valignValue = null;
     this.meta = false;
 }
 
 CryptoURL.prototype =  {
+
+    TOP: 'top',
+    MIDDLE: 'middle',
+    BOTTOM: 'bottom',
+
+    RIGHT: 'right',
+    CENTER: 'center',
+    LEFT: 'left',
 
     inflateKey: function(securityKey) {
         while (securityKey.length < 16) {
@@ -85,6 +95,14 @@ CryptoURL.prototype =  {
             parts.push(sizeString);
         }
 
+        if (this.halignValue) {
+            parts.push(this.halignValue);
+        }
+
+        if (this.valignValue) {
+            parts.push(this.valignValue);
+        }
+
         if (this.smart) {
             parts.push('smart');
         }
@@ -135,6 +153,24 @@ CryptoURL.prototype =  {
 
     flipVertically: function() {
         this.withFlipVertically = true;
+        return this;
+    },
+
+    halign: function(halign) {
+        if (halign === this.LEFT || halign === this.RIGHT || halign === this.CENTER) {
+            this.halignValue = halign;
+        } else {
+            throw Error('Horizontal align must be left, right or center.');
+        }
+        return this;
+    },
+
+    valign: function(valign) {
+        if (valign === this.TOP || valign === this.BOTTOM || valign === this.MIDDLE) {
+            this.valignValue = valign;
+        } else {
+            throw Error('Vertical align must be top, bottom or middle.');
+        }
         return this;
     },
 
