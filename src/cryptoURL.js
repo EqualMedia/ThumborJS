@@ -9,6 +9,8 @@ var CryptoURL = module.exports = function(securityKey, imageURL) {
     this.height = 0;
     this.smart = false;
     this.fitInFlag = false;
+    this.withFlipHorizontally = false;
+    this.withFlipVertically = false;
 }
 
 CryptoURL.prototype =  {
@@ -53,8 +55,23 @@ CryptoURL.prototype =  {
             parts.push('fit-in');
         }
 
-        if (this.width || this.height) {
-            parts.push(this.width + 'x' + this.height);
+
+        if (this.width || this.height || this.withFlipHorizontally || this.withFlipVertically) {
+            var sizeString = '';
+
+            if (this.withFlipHorizontally) {
+                sizeString += '-';
+            }
+            sizeString += this.width;
+
+            sizeString += 'x';
+
+            if (this.withFlipVertically) {
+                sizeString += "-";
+            }
+            sizeString += this.height;
+
+            parts.push(sizeString);
         }
 
         if (this.smart) {
@@ -97,6 +114,16 @@ CryptoURL.prototype =  {
         this.width = width;
         this.height = height;
         this.fitInFlag = true;
+        return this;
+    },
+
+    flipHorizontally: function() {
+        this.withFlipHorizontally = true;
+        return this;
+    },
+
+    flipVertically: function() {
+        this.withFlipVertically = true;
         return this;
     },
 

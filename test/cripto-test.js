@@ -66,8 +66,22 @@ vows.describe('The Thumbor Javascript Library').addBatch({
 
         'I ask for a width of 200 and height of 300 and the fit-in flag and get "fit-in/200x300/84996242f65a4d864aceb125e1c4c5ba" as URL': function(topic) {
             var cryptoURL = new CryptoURL('my-security-key', 'my.server.com/some/path/to/image.jpg'),
-                expectedURL = 'fit-in/200x300/84996242f65a4d864aceb125e1c4c5ba';
+                expectedURL = 'fit-in/200x300/84996242f65a4d864aceb125e1c4c5ba',
                 actualURL = cryptoURL.fitIn(200, 300).requestPath();
+            assert.equal(actualURL, expectedURL);
+        },
+
+        'I ask for the flip flag and get "-0x0/84996242f65a4d864aceb125e1c4c5ba" as URL': function(topic) {
+            var cryptoURL = new CryptoURL('my-security-key', 'my.server.com/some/path/to/image.jpg'),
+                expectedURL = '-0x0/84996242f65a4d864aceb125e1c4c5ba',
+                actualURL = cryptoURL.flipHorizontally().requestPath();
+            assert.equal(actualURL, expectedURL);
+        },
+
+        'I ask for the flop flag and get "0x-0/84996242f65a4d864aceb125e1c4c5ba" as URL': function(topic) {
+            var cryptoURL = new CryptoURL('my-security-key', 'my.server.com/some/path/to/image.jpg'),
+                expectedURL = '0x-0/84996242f65a4d864aceb125e1c4c5ba',
+                actualURL = cryptoURL.flipVertically().requestPath();
             assert.equal(actualURL, expectedURL);
         }
 
