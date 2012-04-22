@@ -26,7 +26,19 @@ CryptoURL.prototype =  {
         return '/' + encryptedURL.replace(/\+/g, '-').replace(/\//g, '_') + '/' + this.imageURL;
     },
 
+    unsafeURL: function() {
+        var safeURL = this.urlParts();
+        safeURL.push(this.imageURL);
+        return '/unsafe/' + safeURL.join('/');
+    },
+
     requestPath: function() {
+        var parts = this.urlParts();
+        parts.push(this.md5(this.imageURL));
+        return parts.join('/');
+    },
+
+    urlParts: function() {
         if (!this.imageURL) {
             throw Error('The image url can\'t be null or empty.');
         }
@@ -36,9 +48,7 @@ CryptoURL.prototype =  {
             parts.push((this.width === undefined ? '0' : this.width) + 'x' + (this.height === undefined ? '0' : this.height));
         }
 
-        parts.push(this.md5(this.imageURL));
-
-        return parts.join('/');
+        return parts;
     },
 
     rightPad: function(url, padChar) {

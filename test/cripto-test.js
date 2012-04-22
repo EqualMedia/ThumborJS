@@ -8,24 +8,31 @@ vows.describe('The Thumbor Javascript Library').addBatch({
         topic: new CryptoURL('my-security-key', 'my.server.com/some/path/to/image.jpg'),
 
         "Can encrypt an URL": function(topic) {
-            var expectedURL = "/l42l54VqaV_J-EcB5quNMP6CnsN9BX7htrh-QbPuDv0C7adUXX7LTo6DHm_woJtZ/my.server.com/some/path/to/image.jpg";
+            var expectedURL = '/l42l54VqaV_J-EcB5quNMP6CnsN9BX7htrh-QbPuDv0C7adUXX7LTo6DHm_woJtZ/my.server.com/some/path/to/image.jpg';
                 actualURL = topic.resize(300, 200).toString();
             assert.equal(actualURL, expectedURL);
+        },
+
+        'Can ask an unsafe URL': function(topic) {
+            var expectedURL = '/unsafe/300x200/my.server.com/some/path/to/image.jpg';
+                actualURL = topic.resize(300, 200).unsafeURL();
+            assert.equal(actualURL, expectedURL);
+
         }
     },
-    "The requestPath method": {
+    'The requestPath method': {
 
         topic: new CryptoURL('my-security-keym', 'my.server.com/some/path/to/image.jpg'),
 
-        "I ask my library for an URL": function(topic) {
-            var expected = "84996242f65a4d864aceb125e1c4c5ba",
+        'I ask my library for an URL': function(topic) {
+            var expected = '84996242f65a4d864aceb125e1c4c5ba',
                 actual = topic.requestPath();
 
             assert.equal(actual, expected);
         },
 
-        "An image URL of null": function(topic) {
-            var cryptoURL = new CryptoURL("my-security-keym", null);
+        'An image URL of null': function(topic) {
+            var cryptoURL = new CryptoURL('my-security-keym', null);
 
             assert.throws(cryptoURL.requestPath, Error);
         }
