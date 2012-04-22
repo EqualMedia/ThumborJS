@@ -16,13 +16,13 @@ console.log(encrypedURL);
 
 ## Development
 
-You need to install [ezcrypto](https://github.com/ElmerZhang/ezcrypto). Just run:
+You need to install [ezcrypto](https://github.com/ElmerZhang/ezcrypto) and [VowsJS](http://vowsjs.org/). Just run:
 
 ```bash
 $ npm install ezcrypto vows
 ```
 
-And then you can run all tests.
+Then you can run all tests.
 
 ```bash
 $ make vows
