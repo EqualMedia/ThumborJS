@@ -209,6 +209,13 @@ vows.describe('The Thumbor Javascript Library').addBatch({
                 expectedURL = 'left/smart/84996242f65a4d864aceb125e1c4c5ba',
                 actualURL = cryptoURL.halign('left').withSmartCropping().requestPath();
             assert.equal(actualURL, expectedURL);
+        },
+
+        'I ask for a "quality(20)" filter and "brightness(10)" filter and get "filters:quality(20):brightness(10)/84996242f65a4d864aceb125e1c4c5ba" as URL': function(topic) {
+            var cryptoURL = new CryptoURL('my-security-key', 'my.server.com/some/path/to/image.jpg'),
+                expectedURL = 'filters:quality(20):brightness(10)/84996242f65a4d864aceb125e1c4c5ba',
+                actualURL = cryptoURL.filter('quality(20)').filter('brightness(10)').requestPath();
+            assert.equal(actualURL, expectedURL);
         }
 
     }

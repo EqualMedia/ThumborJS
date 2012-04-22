@@ -19,7 +19,7 @@ var CryptoURL = module.exports = function(securityKey, imageURL) {
     this.valignValue = null;
     this.cropValues = null;
     this.meta = false;
-    this.filtersCalls = null;
+    this.filtersCalls = [];
 }
 
 CryptoURL.prototype =  {
@@ -112,6 +112,10 @@ CryptoURL.prototype =  {
             parts.push('smart');
         }
 
+        if (this.filtersCalls.length) {
+            parts.push('filters:' + this.filtersCalls.join(':'));
+        }
+
         return parts;
     },
 
@@ -188,6 +192,11 @@ CryptoURL.prototype =  {
 
     metaDataOnly: function() {
         this.meta = true;
+        return this;
+    },
+
+    filter: function(filterCall) {
+        this.filtersCalls.push(filterCall);
         return this;
     },
 
