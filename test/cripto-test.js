@@ -83,6 +83,34 @@ vows.describe('The Thumbor Javascript Library').addBatch({
                 expectedURL = '0x-0/84996242f65a4d864aceb125e1c4c5ba',
                 actualURL = cryptoURL.flipVertically().requestPath();
             assert.equal(actualURL, expectedURL);
+        },
+
+        'I ask for the flip and flop flag and get "-0x-0/84996242f65a4d864aceb125e1c4c5ba" as URL': function(topic) {
+            var cryptoURL = new CryptoURL('my-security-key', 'my.server.com/some/path/to/image.jpg'),
+                expectedURL = '-0x-0/84996242f65a4d864aceb125e1c4c5ba',
+                actualURL = cryptoURL.flipHorizontally().flipVertically().requestPath();
+            assert.equal(actualURL, expectedURL);
+        },
+
+        'I ask for the flip and width of 200 and get "-0x-0/84996242f65a4d864aceb125e1c4c5ba" as URL': function(topic) {
+            var cryptoURL = new CryptoURL('my-security-key', 'my.server.com/some/path/to/image.jpg'),
+                expectedURL = '-200x0/84996242f65a4d864aceb125e1c4c5ba',
+                actualURL = cryptoURL.resize(200, 0).flipHorizontally().requestPath();
+            assert.equal(actualURL, expectedURL);
+        },
+
+        'I ask for the flop and height of 200 and get "-0x-0/84996242f65a4d864aceb125e1c4c5ba" as URL': function(topic) {
+            var cryptoURL = new CryptoURL('my-security-key', 'my.server.com/some/path/to/image.jpg'),
+                expectedURL = '0x-200/84996242f65a4d864aceb125e1c4c5ba',
+                actualURL = cryptoURL.resize(0, 200).flipVertically().requestPath();
+            assert.equal(actualURL, expectedURL);
+        },
+
+        'I ask for the "meta" flag and get "meta/84996242f65a4d864aceb125e1c4c5ba" as URL': function(topic) {
+            var cryptoURL = new CryptoURL('my-security-key', 'my.server.com/some/path/to/image.jpg'),
+                expectedURL = 'meta/84996242f65a4d864aceb125e1c4c5ba',
+                actualURL = cryptoURL.metaDataOnly().requestPath();
+            assert.equal(actualURL, expectedURL);
         }
 
     }

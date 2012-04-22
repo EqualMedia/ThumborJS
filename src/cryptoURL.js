@@ -11,6 +11,7 @@ var CryptoURL = module.exports = function(securityKey, imageURL) {
     this.fitInFlag = false;
     this.withFlipHorizontally = false;
     this.withFlipVertically = false;
+    this.meta = false;
 }
 
 CryptoURL.prototype =  {
@@ -50,6 +51,10 @@ CryptoURL.prototype =  {
             throw Error('The image url can\'t be null or empty.');
         }
         var parts = [];
+
+        if (this.meta) {
+            parts.push('meta');
+        }
 
         if (this.fitInFlag) {
             parts.push('fit-in');
@@ -124,6 +129,11 @@ CryptoURL.prototype =  {
 
     flipVertically: function() {
         this.withFlipVertically = true;
+        return this;
+    },
+
+    metaDataOnly: function() {
+        this.meta = true;
         return this;
     },
 
