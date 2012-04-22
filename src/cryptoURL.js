@@ -8,6 +8,7 @@ var CryptoURL = module.exports = function(securityKey, imageURL) {
     this.width = 0;
     this.height = 0;
     this.smart = false;
+    this.fitInFlag = false;
 }
 
 CryptoURL.prototype =  {
@@ -48,6 +49,10 @@ CryptoURL.prototype =  {
         }
         var parts = [];
 
+        if (this.fitInFlag) {
+            parts.push('fit-in');
+        }
+
         if (this.width || this.height) {
             parts.push(this.width + 'x' + this.height);
         }
@@ -85,6 +90,13 @@ CryptoURL.prototype =  {
 
     withSmartCropping: function() {
         this.smart = true;
+        return this;
+    },
+
+    fitIn: function(width, height) {
+        this.width = width;
+        this.height = height;
+        this.fitInFlag = true;
         return this;
     },
 

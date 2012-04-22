@@ -62,6 +62,13 @@ vows.describe('The Thumbor Javascript Library').addBatch({
             var expectedURL = '200x300/smart/84996242f65a4d864aceb125e1c4c5ba';
                 actualURL = topic.resize(200, 300).withSmartCropping().requestPath();
             assert.equal(actualURL, expectedURL);
+        },
+
+        'I ask for a width of 200 and height of 300 and the fit-in flag and get "fit-in/200x300/84996242f65a4d864aceb125e1c4c5ba" as URL': function(topic) {
+            var cryptoURL = new CryptoURL('my-security-key', 'my.server.com/some/path/to/image.jpg'),
+                expectedURL = 'fit-in/200x300/84996242f65a4d864aceb125e1c4c5ba';
+                actualURL = cryptoURL.fitIn(200, 300).requestPath();
+            assert.equal(actualURL, expectedURL);
         }
 
     }
