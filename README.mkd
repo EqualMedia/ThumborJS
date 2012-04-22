@@ -5,7 +5,8 @@ You can use this library in both browser based applications and NodeJS.
 
 Note:
 
-* Is not recommended to use in browser since you must have to share your Thumbor Security Key with your web clients.
+* It is not recommended to use in browser since you must have to share your Thumbor Security Key with the web clients. Anyway
+in some use cases it makes sense.
 
 ## Usage
 

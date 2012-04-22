@@ -13,6 +13,13 @@ vows.describe('The Thumbor Javascript Library').addBatch({
             assert.equal(actualURL, expectedURL);
         },
 
+        "Ask for resize with smart": function(topic) {
+            var cryptoURL = new CryptoURL('my-security-key', 'http://my.server.com/some/path/to/image.jpg'),
+                expectedURL = '/LFS8rnXScOTlQvOJBE8i55p_LwzRr7aEgLYtDBpyAwUTwd2x1TsZr6yOHZpBF_YF/my.server.com/some/path/to/image.jpg';
+                actualURL = cryptoURL.resize(300, 200).withSmartCropping().toString();
+            assert.equal(actualURL, expectedURL);
+        },
+
         "Ask for meta": function(topic) {
             var cryptoURL = new CryptoURL('my-security-key', 'http://my.server.com/some/path/to/image.jpg'),
                 expectedURL = '/Jj2Xp-__GWUzZ5zemvPGW2B3j5atA7X1ntF0irz-YGXUcE3-QpqkDbDnVUmBhHi-/my.server.com/some/path/to/image.jpg';
