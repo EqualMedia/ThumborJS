@@ -12,5 +12,16 @@ vows.describe('The Thumbor Javascript Library').addBatch({
                 actualURL = topic.resize(300, 200).toString();
             assert.equal(actualURL, expectedURL);
         }
+    },
+    "The requestPath method": {
+
+        topic: new CryptoURL('my-security-keym', 'my.server.com/some/path/to/image.jpg'),
+
+        "I ask my library for an URL": function(topic) {
+            var expected = "84996242f65a4d864aceb125e1c4c5ba",
+                actual = topic.requestPath();
+
+            assert.equal(actual, expected);
+        }
     }
 }).export(module);

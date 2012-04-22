@@ -36,9 +36,9 @@ CryptoURL.prototype =  {
             parts.push((this.width === undefined ? '0' : this.width) + 'x' + (this.height === undefined ? '0' : this.height));
         }
 
-        var url = parts.join('/') + '/';
-        url += this.md5(this.imageURL);
-        return url;
+        parts.push(this.md5(this.imageURL));
+
+        return parts.join('/');
     },
 
     rightPad: function(url, padChar) {
