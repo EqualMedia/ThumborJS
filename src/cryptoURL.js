@@ -9,7 +9,6 @@ var CryptoURL = module.exports = function(securityKey, imageURL) {
         this.imageURL = '';
     }
 
-    this.filters = {};
     this.width = 0;
     this.height = 0;
     this.smart = false;
@@ -18,7 +17,9 @@ var CryptoURL = module.exports = function(securityKey, imageURL) {
     this.withFlipVertically = false;
     this.halignValue = null;
     this.valignValue = null;
+    this.cropValues = null;
     this.meta = false;
+    this.filtersCalls = null;
 }
 
 CryptoURL.prototype =  {
@@ -70,6 +71,10 @@ CryptoURL.prototype =  {
 
         if (this.meta) {
             parts.push('meta');
+        }
+
+        if (this.cropValues) {
+            parts.push(this.cropValues.left + 'x' + this.cropValues.top + ':' + this.cropValues.right + 'x' + this.cropValues.bottom);
         }
 
         if (this.fitInFlag) {
@@ -170,6 +175,13 @@ CryptoURL.prototype =  {
             this.valignValue = valign;
         } else {
             throw Error('Vertical align must be top, bottom or middle.');
+        }
+        return this;
+    },
+
+    crop: function(left, top, right, bottom) {
+        if (left > 0 && top > 0 && right > 0 && bottom > 0) {
+            this.cropValues = {left: left, top: top, right: right, bottom: bottom};
         }
         return this;
     },

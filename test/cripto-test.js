@@ -188,6 +188,27 @@ vows.describe('The Thumbor Javascript Library').addBatch({
                 expectedURL = 'meta/84996242f65a4d864aceb125e1c4c5ba',
                 actualURL = cryptoURL.metaDataOnly().requestPath();
             assert.equal(actualURL, expectedURL);
+        },
+
+        'I ask for the "crop" and get "10x20:30x40/84996242f65a4d864aceb125e1c4c5ba" as URL': function(topic) {
+            var cryptoURL = new CryptoURL('my-security-key', 'my.server.com/some/path/to/image.jpg'),
+                expectedURL = '10x20:30x40/84996242f65a4d864aceb125e1c4c5ba',
+                actualURL = cryptoURL.crop(10, 20, 30, 40).requestPath();
+            assert.equal(actualURL, expectedURL);
+        },
+
+        'I ask for the "crop" with zeros and get "84996242f65a4d864aceb125e1c4c5ba" as URL': function(topic) {
+            var cryptoURL = new CryptoURL('my-security-key', 'my.server.com/some/path/to/image.jpg'),
+                expectedURL = '84996242f65a4d864aceb125e1c4c5ba',
+                actualURL = cryptoURL.crop(0, 0, 0, 0).requestPath();
+            assert.equal(actualURL, expectedURL);
+        },
+
+        'I ask for a smart flag and "left" as horizontal alignment and get "left/smart/84996242f65a4d864aceb125e1c4c5ba" as URL': function(topic) {
+            var cryptoURL = new CryptoURL('my-security-key', 'my.server.com/some/path/to/image.jpg'),
+                expectedURL = 'left/smart/84996242f65a4d864aceb125e1c4c5ba',
+                actualURL = cryptoURL.halign('left').withSmartCropping().requestPath();
+            assert.equal(actualURL, expectedURL);
         }
 
     }
