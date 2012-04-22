@@ -12,6 +12,20 @@ vows.describe('The Thumbor Javascript Library').addBatch({
                 actualURL = topic.resize(300, 200).toString();
             assert.equal(actualURL, expectedURL);
         },
+        
+        "Ask for meta": function(topic) {
+            var cryptoURL = new CryptoURL('my-security-key', 'http://my.server.com/some/path/to/image.jpg'),
+                expectedURL = '/Jj2Xp-__GWUzZ5zemvPGW2B3j5atA7X1ntF0irz-YGXUcE3-QpqkDbDnVUmBhHi-/my.server.com/some/path/to/image.jpg';
+                actualURL = cryptoURL.metaDataOnly().toString();
+            assert.equal(actualURL, expectedURL);
+        },
+        
+        "Ask for smart": function(topic) {
+            var cryptoURL = new CryptoURL('my-security-key', 'http://my.server.com/some/path/to/image.jpg'),
+                expectedURL = '/YV6ASUwnbI8XwBw6LpMdv1wy7xC-EHp44LIQqyPYPIqa-dX7JCv4LSeObHxPyY17/my.server.com/some/path/to/image.jpg';
+                actualURL = cryptoURL.withSmartCropping().toString();
+            assert.equal(actualURL, expectedURL);
+        },
 
         'Can ask an unsafe URL': function(topic) {
             var expectedURL = '/unsafe/300x200/my.server.com/some/path/to/image.jpg';

@@ -2,7 +2,12 @@ var CryptoLib = require('../lib/ezcrypto/index').Crypto;
 
 var CryptoURL = module.exports = function(securityKey, imageURL) {
     this.key = this.inflateKey(securityKey);
-    this.imageURL = imageURL;
+
+    if (imageURL) {
+        this.imageURL = imageURL.replace(/^https?\:\/\//, '');
+    } else {
+        this.imageURL = '';
+    }
 
     this.filters = {};
     this.width = 0;
@@ -50,6 +55,7 @@ CryptoURL.prototype =  {
         if (!this.imageURL) {
             throw Error('The image url can\'t be null or empty.');
         }
+
         var parts = [];
 
         if (this.meta) {
