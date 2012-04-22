@@ -1,5 +1,4 @@
-ThumborJS
-=========
+# ThumborJS
 
 Thumbor Javascript (ThumborJS) is a library to generate encrypted [Thumbor](https://github.com/globocom/thumbor/) URLs. 
 You can use this library in both browser based applications and NodeJS. 
@@ -8,8 +7,7 @@ Note:
 
 * Is not recommended to use in browser since you must have to share your Thumbor Security Key with your web clients.
 
-Usage
------
+## Usage
 
 Using ThumborJS is pretty simple, all you have to do is create a CryptoURL instance with the 
 proper key and original image URL and start customizing it.
@@ -21,3 +19,28 @@ console.log(encrypedURL);
 // /l42l54VqaV_J-EcB5quNMP6CnsN9BX7htrh-QbPuDv0C7adUXX7LTo6DHm_woJtZ/my.server.com/some/path/to/image.jpg
 ```
 
+# License
+
+ThumborJS is licensed under the MIT License:
+
+> The MIT License
+
+> Copyright (c) 2012 Rafael Carício <rafael@caricio.com>
+
+> Permission is hereby granted, free of charge, to any person obtaining a copy
+> of this software and associated documentation files (the "Software"), to deal
+> in the Software without restriction, including without limitation the rights
+> to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+> copies of the Software, and to permit persons to whom the Software is
+> furnished to do so, subject to the following conditions:
+
+> The above copyright notice and this permission notice shall be included in
+> all copies or substantial portions of the Software.
+
+> THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+> AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+> LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+> OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+> THE SOFTWARE.
