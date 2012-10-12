@@ -1,10 +1,10 @@
-var CryptoLib = require('ezcrypto').Crypto;
+var createHmac = require('crypto').createHmac;
 
-var CryptoURL = module.exports = function(securityKey, imageURL) {
-    this.key = this.inflateKey(securityKey);
+var CryptoURL = module.exports = function(key, imageURL) {
+    this.key = key;
 
     if (imageURL) {
-        this.imageURL = imageURL.replace(/^https?\:\/\//, '');
+        this.imageURL = encodeURIComponent(imageURL);
     } else {
         this.imageURL = '';
     }
@@ -32,22 +32,12 @@ CryptoURL.prototype =  {
     CENTER: 'center',
     LEFT: 'left',
 
-    inflateKey: function(securityKey) {
-        while (securityKey.length < 16) {
-            securityKey += securityKey;
-        }
-        return securityKey.substring(0, 16);
-    },
-
     generate: function() {
-        var url = this.requestPath(),
-            encryptedURL;
+        var path = this.requestPath();
 
-        url = this.rightPad(url, '{');
+        hmac = createHmac('sha1', this.key).update(path).digest('base64');
 
-        encryptedURL = CryptoLib.AES.encrypt(url, CryptoLib.charenc.UTF8.stringToBytes(this.key), {mode: new CryptoLib.mode.ECB(CryptoLib.pad.NoPadding) });
-
-        return '/' + encryptedURL.replace(/\+/g, '-').replace(/\//g, '_') + '/' + this.imageURL;
+        return '/' + hmac.replace(/\+/g, '-').replace(/\//g, '_') + '/' + path;
     },
 
     unsafeURL: function() {
@@ -58,7 +48,7 @@ CryptoURL.prototype =  {
 
     requestPath: function() {
         var parts = this.urlParts();
-        parts.push(this.md5(this.imageURL));
+        parts.push(this.imageURL);
         return parts.join('/');
     },
 
@@ -131,10 +121,6 @@ CryptoURL.prototype =  {
         }
 
         return url;
-    },
-
-    md5: function(imageURL) {
-        return CryptoLib.MD5(imageURL);
     },
 
     resize: function(width, height) {

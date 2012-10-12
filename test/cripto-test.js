@@ -5,58 +5,58 @@ var vows = require('vows'),
 vows.describe('The Thumbor Javascript Library').addBatch({
     "The Crypto object": {
 
-        topic: new CryptoURL('my-security-key', 'my.server.com/some/path/to/image.jpg'),
+        topic: new CryptoURL('my-security-key', 'http://my.server.com/some/path/to/image.jpg'),
 
         "Can encrypt an URL": function(topic) {
-            var expectedURL = '/l42l54VqaV_J-EcB5quNMP6CnsN9BX7htrh-QbPuDv0C7adUXX7LTo6DHm_woJtZ/my.server.com/some/path/to/image.jpg';
+            var expectedURL = '/L4SZ12Me772hvGZ63C5RepvBfak=/300x200/http%3A%2F%2Fmy.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg';
                 actualURL = topic.resize(300, 200).toString();
             assert.equal(actualURL, expectedURL);
         },
 
         "Ask for resize with smart": function(topic) {
             var cryptoURL = new CryptoURL('my-security-key', 'http://my.server.com/some/path/to/image.jpg'),
-                expectedURL = '/LFS8rnXScOTlQvOJBE8i55p_LwzRr7aEgLYtDBpyAwUTwd2x1TsZr6yOHZpBF_YF/my.server.com/some/path/to/image.jpg';
+                expectedURL = '/CmosYtH1TSg_sUP_eXldq2MiaaQ=/300x200/smart/http%3A%2F%2Fmy.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg';
                 actualURL = cryptoURL.resize(300, 200).withSmartCropping().toString();
             assert.equal(actualURL, expectedURL);
         },
 
         "Ask for meta": function(topic) {
             var cryptoURL = new CryptoURL('my-security-key', 'http://my.server.com/some/path/to/image.jpg'),
-                expectedURL = '/Jj2Xp-__GWUzZ5zemvPGW2B3j5atA7X1ntF0irz-YGXUcE3-QpqkDbDnVUmBhHi-/my.server.com/some/path/to/image.jpg';
+                expectedURL = '/2cPvjJwqthZd0rK89W2IwlXX9qg=/meta/http%3A%2F%2Fmy.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg';
                 actualURL = cryptoURL.metaDataOnly().toString();
             assert.equal(actualURL, expectedURL);
         },
 
         "Ask for smart": function(topic) {
             var cryptoURL = new CryptoURL('my-security-key', 'http://my.server.com/some/path/to/image.jpg'),
-                expectedURL = '/YV6ASUwnbI8XwBw6LpMdv1wy7xC-EHp44LIQqyPYPIqa-dX7JCv4LSeObHxPyY17/my.server.com/some/path/to/image.jpg';
+                expectedURL = '/SIombYZT4u4R_RM3YmeMV3Y2DyM=/smart/http%3A%2F%2Fmy.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg';
                 actualURL = cryptoURL.withSmartCropping().toString();
             assert.equal(actualURL, expectedURL);
         },
 
         "Ask for fitin": function(topic) {
             var cryptoURL = new CryptoURL('my-security-key', 'http://my.server.com/some/path/to/image.jpg'),
-                expectedURL = '/nZlz3CEKZFMVFcNo7KKFzFWKWb7W2fFEqo_LQ2omj13fQPzSSENNk7Iz8Pc4sFen/my.server.com/some/path/to/image.jpg';
+                expectedURL = '/bJgAUvieK7Xh4uLRETr-tLBZVaM=/fit-in/http%3A%2F%2Fmy.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg';
                 actualURL = cryptoURL.fitIn(0,0).toString();
             assert.equal(actualURL, expectedURL);
         },
 
         "Ask for flip": function(topic) {
             var cryptoURL = new CryptoURL('my-security-key', 'http://my.server.com/some/path/to/image.jpg'),
-                expectedURL = '/lMySk3L-Z2oa-RXQs4MgWWB3j5atA7X1ntF0irz-YGXUcE3-QpqkDbDnVUmBhHi-/my.server.com/some/path/to/image.jpg';
+                expectedURL = '/lO7ennR-nrJSp_BpmKcjQf4C_ms=/-0x0/http%3A%2F%2Fmy.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg';
                 actualURL = cryptoURL.flipHorizontally().toString();
             assert.equal(actualURL, expectedURL);
         },
 
         "Ask for flop": function(topic) {
             var cryptoURL = new CryptoURL('my-security-key', 'http://my.server.com/some/path/to/image.jpg'),
-                expectedURL = '/Yq1tjo95ZWIKrntANgW-UGB3j5atA7X1ntF0irz-YGXUcE3-QpqkDbDnVUmBhHi-/my.server.com/some/path/to/image.jpg';
+                expectedURL = '/3JRqMbu6NS_XUwU0jywWCTISjmY=/0x-0/http%3A%2F%2Fmy.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg';
                 actualURL = cryptoURL.flipVertically().toString();
             assert.equal(actualURL, expectedURL);
         },
 
         'Can ask an unsafe URL': function(topic) {
-            var expectedURL = '/unsafe/300x200/my.server.com/some/path/to/image.jpg';
+            var expectedURL = '/unsafe/300x200/http%3A%2F%2Fmy.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg';
                 actualURL = topic.resize(300, 200).unsafeURL();
             assert.equal(actualURL, expectedURL);
 
@@ -67,7 +67,7 @@ vows.describe('The Thumbor Javascript Library').addBatch({
         topic: new CryptoURL('my-security-keym', 'my.server.com/some/path/to/image.jpg'),
 
         'I ask my library for an URL': function(topic) {
-            var expected = '84996242f65a4d864aceb125e1c4c5ba',
+            var expected = 'my.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg',
                 actual = topic.requestPath();
             assert.equal(actual, expected);
         },
@@ -82,138 +82,138 @@ vows.describe('The Thumbor Javascript Library').addBatch({
             assert.throws(cryptoURL.requestPath, Error);
         },
 
-        'I ask for a width of 300 and get "300x0/84996242f65a4d864aceb125e1c4c5ba" as URL': function(topic) {
-            var expectedURL = '300x0/84996242f65a4d864aceb125e1c4c5ba';
+        'I ask for a width of 300 and get "300x0/my.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg" as URL': function(topic) {
+            var expectedURL = '300x0/my.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg';
                 actualURL = topic.resize(300, 0).requestPath();
             assert.equal(actualURL, expectedURL);
         },
 
-        'I ask for a height of 300 and get "0x300/84996242f65a4d864aceb125e1c4c5ba" as URL': function(topic) {
-            var expectedURL = '0x300/84996242f65a4d864aceb125e1c4c5ba';
+        'I ask for a height of 300 and get "0x300/my.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg" as URL': function(topic) {
+            var expectedURL = '0x300/my.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg';
                 actualURL = topic.resize(0, 300).requestPath();
             assert.equal(actualURL, expectedURL);
         },
 
-        'I ask for a width of 200 and height of 300 and get "300x200/84996242f65a4d864aceb125e1c4c5ba" as URL': function(topic) {
-            var expectedURL = '200x300/84996242f65a4d864aceb125e1c4c5ba';
+        'I ask for a width of 200 and height of 300 and get "300x200/my.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg" as URL': function(topic) {
+            var expectedURL = '200x300/my.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg';
                 actualURL = topic.resize(200, 300).requestPath();
             assert.equal(actualURL, expectedURL);
         },
 
-        'I ask for a width of 200 and height of 300 and smart flag and get "200x300/smart/84996242f65a4d864aceb125e1c4c5ba" as URL': function(topic) {
-            var expectedURL = '200x300/smart/84996242f65a4d864aceb125e1c4c5ba';
+        'I ask for a width of 200 and height of 300 and smart flag and get "200x300/smart/my.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg" as URL': function(topic) {
+            var expectedURL = '200x300/smart/my.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg';
                 actualURL = topic.resize(200, 300).withSmartCropping().requestPath();
             assert.equal(actualURL, expectedURL);
         },
 
-        'I ask for a width of 200 and height of 300 and the fit-in flag and get "fit-in/200x300/84996242f65a4d864aceb125e1c4c5ba" as URL': function(topic) {
+        'I ask for a width of 200 and height of 300 and the fit-in flag and get "fit-in/200x300/my.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg" as URL': function(topic) {
             var cryptoURL = new CryptoURL('my-security-key', 'my.server.com/some/path/to/image.jpg'),
-                expectedURL = 'fit-in/200x300/84996242f65a4d864aceb125e1c4c5ba',
+                expectedURL = 'fit-in/200x300/my.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg',
                 actualURL = cryptoURL.fitIn(200, 300).requestPath();
             assert.equal(actualURL, expectedURL);
         },
 
-        'I ask for the flip flag and get "-0x0/84996242f65a4d864aceb125e1c4c5ba" as URL': function(topic) {
+        'I ask for the flip flag and get "-0x0/my.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg" as URL': function(topic) {
             var cryptoURL = new CryptoURL('my-security-key', 'my.server.com/some/path/to/image.jpg'),
-                expectedURL = '-0x0/84996242f65a4d864aceb125e1c4c5ba',
+                expectedURL = '-0x0/my.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg',
                 actualURL = cryptoURL.flipHorizontally().requestPath();
             assert.equal(actualURL, expectedURL);
         },
 
-        'I ask for the flop flag and get "0x-0/84996242f65a4d864aceb125e1c4c5ba" as URL': function(topic) {
+        'I ask for the flop flag and get "0x-0/my.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg" as URL': function(topic) {
             var cryptoURL = new CryptoURL('my-security-key', 'my.server.com/some/path/to/image.jpg'),
-                expectedURL = '0x-0/84996242f65a4d864aceb125e1c4c5ba',
+                expectedURL = '0x-0/my.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg',
                 actualURL = cryptoURL.flipVertically().requestPath();
             assert.equal(actualURL, expectedURL);
         },
 
-        'I ask for the flip and flop flag and get "-0x-0/84996242f65a4d864aceb125e1c4c5ba" as URL': function(topic) {
+        'I ask for the flip and flop flag and get "-0x-0/my.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg" as URL': function(topic) {
             var cryptoURL = new CryptoURL('my-security-key', 'my.server.com/some/path/to/image.jpg'),
-                expectedURL = '-0x-0/84996242f65a4d864aceb125e1c4c5ba',
+                expectedURL = '-0x-0/my.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg',
                 actualURL = cryptoURL.flipHorizontally().flipVertically().requestPath();
             assert.equal(actualURL, expectedURL);
         },
 
-        'I ask for the flip and width of 200 and get "-200x0/84996242f65a4d864aceb125e1c4c5ba" as URL': function(topic) {
+        'I ask for the flip and width of 200 and get "-200x0/my.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg" as URL': function(topic) {
             var cryptoURL = new CryptoURL('my-security-key', 'my.server.com/some/path/to/image.jpg'),
-                expectedURL = '-200x0/84996242f65a4d864aceb125e1c4c5ba',
+                expectedURL = '-200x0/my.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg',
                 actualURL = cryptoURL.resize(200, 0).flipHorizontally().requestPath();
             assert.equal(actualURL, expectedURL);
         },
 
-        'I ask for the flop and height of 200 and get "0x-200/84996242f65a4d864aceb125e1c4c5ba" as URL': function(topic) {
+        'I ask for the flop and height of 200 and get "0x-200/my.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg" as URL': function(topic) {
             var cryptoURL = new CryptoURL('my-security-key', 'my.server.com/some/path/to/image.jpg'),
-                expectedURL = '0x-200/84996242f65a4d864aceb125e1c4c5ba',
+                expectedURL = '0x-200/my.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg',
                 actualURL = cryptoURL.resize(0, 200).flipVertically().requestPath();
             assert.equal(actualURL, expectedURL);
         },
 
-        'I ask for the "left" horizontal alignment option and get "left/84996242f65a4d864aceb125e1c4c5ba" as URL': function(topic) {
+        'I ask for the "left" horizontal alignment option and get "left/my.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg" as URL': function(topic) {
             var cryptoURL = new CryptoURL('my-security-key', 'my.server.com/some/path/to/image.jpg'),
-                expectedURL = 'left/84996242f65a4d864aceb125e1c4c5ba',
+                expectedURL = 'left/my.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg',
                 actualURL = cryptoURL.halign('left').requestPath();
             assert.equal(actualURL, expectedURL);
         },
 
-        'I ask for the "center" horizontal alignment option and get "center/84996242f65a4d864aceb125e1c4c5ba" as URL': function(topic) {
+        'I ask for the "center" horizontal alignment option and get "center/my.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg" as URL': function(topic) {
             var cryptoURL = new CryptoURL('my-security-key', 'my.server.com/some/path/to/image.jpg'),
-                expectedURL = 'center/84996242f65a4d864aceb125e1c4c5ba',
+                expectedURL = 'center/my.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg',
                 actualURL = cryptoURL.halign('center').requestPath();
             assert.equal(actualURL, expectedURL);
         },
 
-        'I ask for the "top" vertical alignment option and get "top/84996242f65a4d864aceb125e1c4c5ba" as URL': function(topic) {
+        'I ask for the "top" vertical alignment option and get "top/my.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg" as URL': function(topic) {
             var cryptoURL = new CryptoURL('my-security-key', 'my.server.com/some/path/to/image.jpg'),
-                expectedURL = 'top/84996242f65a4d864aceb125e1c4c5ba',
+                expectedURL = 'top/my.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg',
                 actualURL = cryptoURL.valign('top').requestPath();
             assert.equal(actualURL, expectedURL);
         },
 
-        'I ask for the "middle" vertical alignment option and get "middle/84996242f65a4d864aceb125e1c4c5ba" as URL': function(topic) {
+        'I ask for the "middle" vertical alignment option and get "middle/my.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg" as URL': function(topic) {
             var cryptoURL = new CryptoURL('my-security-key', 'my.server.com/some/path/to/image.jpg'),
-                expectedURL = 'middle/84996242f65a4d864aceb125e1c4c5ba',
+                expectedURL = 'middle/my.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg',
                 actualURL = cryptoURL.valign('middle').requestPath();
             assert.equal(actualURL, expectedURL);
         },
 
-        'I ask for the "left" horizontal alignment and "top" as vertical alignment option and get "left/top/84996242f65a4d864aceb125e1c4c5ba" as URL': function(topic) {
+        'I ask for the "left" horizontal alignment and "top" as vertical alignment option and get "left/top/my.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg" as URL': function(topic) {
             var cryptoURL = new CryptoURL('my-security-key', 'my.server.com/some/path/to/image.jpg'),
-                expectedURL = 'left/top/84996242f65a4d864aceb125e1c4c5ba',
+                expectedURL = 'left/top/my.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg',
                 actualURL = cryptoURL.halign('left').valign('top').requestPath();
             assert.equal(actualURL, expectedURL);
         },
 
-        'I ask for the "meta" flag and get "meta/84996242f65a4d864aceb125e1c4c5ba" as URL': function(topic) {
+        'I ask for the "meta" flag and get "meta/my.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg" as URL': function(topic) {
             var cryptoURL = new CryptoURL('my-security-key', 'my.server.com/some/path/to/image.jpg'),
-                expectedURL = 'meta/84996242f65a4d864aceb125e1c4c5ba',
+                expectedURL = 'meta/my.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg',
                 actualURL = cryptoURL.metaDataOnly().requestPath();
             assert.equal(actualURL, expectedURL);
         },
 
-        'I ask for the "crop" and get "10x20:30x40/84996242f65a4d864aceb125e1c4c5ba" as URL': function(topic) {
+        'I ask for the "crop" and get "10x20:30x40/my.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg" as URL': function(topic) {
             var cryptoURL = new CryptoURL('my-security-key', 'my.server.com/some/path/to/image.jpg'),
-                expectedURL = '10x20:30x40/84996242f65a4d864aceb125e1c4c5ba',
+                expectedURL = '10x20:30x40/my.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg',
                 actualURL = cryptoURL.crop(10, 20, 30, 40).requestPath();
             assert.equal(actualURL, expectedURL);
         },
 
-        'I ask for the "crop" with zeros and get "84996242f65a4d864aceb125e1c4c5ba" as URL': function(topic) {
+        'I ask for the "crop" with zeros and get "my.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg" as URL': function(topic) {
             var cryptoURL = new CryptoURL('my-security-key', 'my.server.com/some/path/to/image.jpg'),
-                expectedURL = '84996242f65a4d864aceb125e1c4c5ba',
+                expectedURL = 'my.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg',
                 actualURL = cryptoURL.crop(0, 0, 0, 0).requestPath();
             assert.equal(actualURL, expectedURL);
         },
 
-        'I ask for a smart flag and "left" as horizontal alignment and get "left/smart/84996242f65a4d864aceb125e1c4c5ba" as URL': function(topic) {
+        'I ask for a smart flag and "left" as horizontal alignment and get "left/smart/my.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg" as URL': function(topic) {
             var cryptoURL = new CryptoURL('my-security-key', 'my.server.com/some/path/to/image.jpg'),
-                expectedURL = 'left/smart/84996242f65a4d864aceb125e1c4c5ba',
+                expectedURL = 'left/smart/my.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg',
                 actualURL = cryptoURL.halign('left').withSmartCropping().requestPath();
             assert.equal(actualURL, expectedURL);
         },
 
-        'I ask for a "quality(20)" filter and "brightness(10)" filter and get "filters:quality(20):brightness(10)/84996242f65a4d864aceb125e1c4c5ba" as URL': function(topic) {
+        'I ask for a "quality(20)" filter and "brightness(10)" filter and get "filters:quality(20):brightness(10)/my.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg" as URL': function(topic) {
             var cryptoURL = new CryptoURL('my-security-key', 'my.server.com/some/path/to/image.jpg'),
-                expectedURL = 'filters:quality(20):brightness(10)/84996242f65a4d864aceb125e1c4c5ba',
+                expectedURL = 'filters:quality(20):brightness(10)/my.server.com%2Fsome%2Fpath%2Fto%2Fimage.jpg',
                 actualURL = cryptoURL.filter('quality(20)').filter('brightness(10)').requestPath();
             assert.equal(actualURL, expectedURL);
         }

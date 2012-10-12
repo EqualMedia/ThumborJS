@@ -5,9 +5,6 @@
     "author": "Rafael Carício <rafael@caricio.com>",
     "contributors": [],
     "main": "./src",
-    "dependencies": {
-        "ezcrypto": "~0.0.3"
-    },
     "devDependencies": {
         "vows": "~0.6.2"
     },
